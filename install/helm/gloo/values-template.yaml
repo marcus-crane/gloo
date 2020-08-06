@@ -53,6 +53,9 @@ discovery:
   enabled: true
   fdsMode: WHITELIST
   serviceAccount: {}
+  extraPodLabels:
+    miles: holland
+    norman: darling
   deployment:
     image:
       repository: discovery

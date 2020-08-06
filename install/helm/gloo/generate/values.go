@@ -153,7 +153,8 @@ type Discovery struct {
 	Deployment     *DiscoveryDeployment `json:"deployment,omitempty"`
 	FdsMode        string               `json:"fdsMode" desc:"mode for function discovery (blacklist or whitelist). See more info in the settings docs"`
 	Enabled        *bool                `json:"enabled" desc:"enable Discovery features"`
-	ServiceAccount `json:"serviceAccount" `
+	ServiceAccount                      `json:"serviceAccount" `
+	ExtraPodLabels interface{}          `json:"extraPodLabels"`
 }
 
 type DiscoveryDeployment struct {

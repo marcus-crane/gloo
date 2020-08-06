@@ -21,9 +21,15 @@ spec:
     metadata:
       labels:
         gloo: discovery
+        hi: bye
+{{- if .Values.discovery.extraPodLabels }}
+  {{- range $key, $value := .Values.discovery.extraPodLabels }}
+        {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}
       {{- if $statsConfig.enabled }}
       annotations:
-        prometheus.io/path: /metrics
+        prometheus.io/path: /metrics2
         prometheus.io/port: "9091"
         prometheus.io/scrape: "true"
       {{- end}}
