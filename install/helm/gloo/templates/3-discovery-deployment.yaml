@@ -21,12 +21,11 @@ spec:
     metadata:
       labels:
         gloo: discovery
-        hi: bye
-{{- if .Values.discovery.extraPodLabels }}
-  {{- range $key, $value := .Values.discovery.extraPodLabels }}
+        {{- if .Values.discovery.deployment.extraDiscoveryLabels }}
+        {{- range $key, $value := .Values.discovery.deployment.extraDiscoveryLabels }}
         {{ $key }}: {{ $value | quote }}
-  {{- end }}
-{{- end }}
+        {{- end }}
+        {{- end }}
       {{- if $statsConfig.enabled }}
       annotations:
         prometheus.io/path: /metrics2

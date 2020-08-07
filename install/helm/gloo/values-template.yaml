@@ -16,6 +16,12 @@ settings:
     invalidRouteResponseBody: 'Gloo Gateway has invalid configuration. Administrators should run `glooctl check` to find and fix config errors.'
   integrations:
     knative:
+      extraKnativeExternalLabels:
+        miles: knative2exernal
+        norman: darling
+      extraKnativeInternalLabels:
+        miles: knative2internal
+        norman: darling
       enabled: false
       version: "0.10.0"
       proxy:
@@ -49,18 +55,19 @@ gloo:
     replicas: 1
     runAsUser: 10101
     serviceAccount: {}
+    extraGlooLabels:
+      miles: gloo
 discovery:
   enabled: true
   fdsMode: WHITELIST
   serviceAccount: {}
-  extraPodLabels:
-    miles: holland
-    norman: darling
   deployment:
     image:
       repository: discovery
     replicas: 1
     runAsUser: 10101
+    extraDiscoveryLabels:
+      miles: discovery
 gateway:
   enabled: true
   readGatewaysFromAllNamespaces: false
@@ -77,6 +84,8 @@ gateway:
       repository: gateway
     replicas: 1
     runAsUser: 10101
+    extraGatewayLabels:
+      miles: gateway
   certGenJob:
     enabled: true
     image:
@@ -111,6 +120,8 @@ gatewayProxies:
         enabled: false
         sleepTimeSeconds: 25
       customReadinessProbe: {}
+      extraGatewayProxyLabels:
+        miles: gatewayProxy
     service:
       customPorts: []
       type: LoadBalancer
@@ -126,7 +137,7 @@ gatewayProxies:
     loopBackAddress: 127.0.0.1
     globalDownstreamMaxConnections: 250000
 accessLogger:
-  enabled: false
+  enabled: true
   port: 8083
   serviceName: AccessLog
   image:
@@ -135,6 +146,9 @@ accessLogger:
   replicas: 1
   stats:
     enabled: true
+  extraAccessLoggerLabels:
+    miles: logger
+    norman: darling
 ingress:
   enabled: false
   deployment:
@@ -142,6 +156,9 @@ ingress:
       repository: ingress
     replicas: 1
     runAsUser: 10101
+    extraIngressLabels:
+      miles: ingress2
+      norman: darling
 ingressProxy:
   loopBackAddress: 127.0.0.1
   deployment:
@@ -150,6 +167,9 @@ ingressProxy:
     httpPort: 80
     httpsPort: 443
     replicas: 1
+    extraIngressProxyLabels:
+      miles: ingressProxy2
+      norman: darling
   service:
     type: LoadBalancer
     extraAnnotations: {}

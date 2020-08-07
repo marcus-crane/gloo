@@ -21,6 +21,11 @@ spec:
     metadata:
       labels:
         gloo: clusteringress-proxy
+        {{- if .Values.discovery.extraIngressProxyLabels }}
+        {{- range $key, $value := .Values.discovery.extraIngressProxyLabels }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
+        {{- end }}
     spec:
       containers:
       - args: ["--disable-hot-restart"]
